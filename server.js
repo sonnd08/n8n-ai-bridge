@@ -12,11 +12,12 @@ app.use(express.json());
 
 // N8N Configuration
 const N8N_API_TOKEN = process.env.N8N_API;
-const N8N_BASE_URL = process.env.N8N_BASE_URL || 'https://n8n.sonnd.com/api/v1';
+const N8N_BASE_URL = process.env.N8N_BASE_URL || 'http://localhost:5678';
+const N8N_API_URL = `${N8N_BASE_URL}/api/v1`;
 
 // Configure axios for n8n API
 const n8nApi = axios.create({
-  baseURL: N8N_BASE_URL,
+  baseURL: N8N_API_URL,
   headers: {
     'X-N8N-API-KEY': N8N_API_TOKEN,
     'Content-Type': 'application/json'
@@ -127,7 +128,8 @@ app.get('/api/n8n/status', async (req, res) => {
     res.json({
       status: 'success',
       permissions,
-      baseUrl: N8N_BASE_URL
+      baseUrl: N8N_BASE_URL,
+      apiUrl: N8N_API_URL
     });
   } catch (error) {
     res.status(500).json({
@@ -238,7 +240,8 @@ async function startServer() {
   app.listen(PORT, async () => {
     console.log(`🚀 n8n AI Bridge server running on port ${PORT}`);
     console.log(`📍 Base URL: http://localhost:${PORT}`);
-    console.log(`🔗 n8n API URL: ${N8N_BASE_URL}`);
+    console.log(`🔗 n8n Base URL: ${N8N_BASE_URL}`);
+    console.log(`🔗 n8n API URL: ${N8N_API_URL}`);
     
     // Test n8n connection on startup
     await testN8nConnection();

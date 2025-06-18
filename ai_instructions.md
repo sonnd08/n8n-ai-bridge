@@ -92,7 +92,7 @@ All API responses follow this format:
 
 ## Environment Variables
 - `N8N_API`: JWT token for n8n API authentication
-- `N8N_BASE_URL`: n8n API base URL (default: https://n8n.sonnd.com/api/v1)
+- `N8N_BASE_URL`: n8n base URL (default: http://localhost:5678) - API path (/api/v1) is automatically appended
 - `PORT`: Server port (default: 3000)
 
 ## Security Notes
